@@ -184,92 +184,92 @@ MIT License — 詳見 `LICENSE` 檔案 / See `LICENSE` file for details.
 
 ### 短期優化方向 / Short-term
 
-#### 1. 自動偵測執行 main.py
+#### 1. 自動偵測執行 main.py / Auto-detect and Run main.py
 
-**目標：** 改善單一指令稿專案的使用體驗
+**目標 / Goal:** 改善單一指令稿專案的使用體驗 / Improve user experience for single-script projects
 
-- 若專案只有 `main.py`，直接執行（跳過選單）
-- 若有 `main.py` + 其他檔案，提供快捷選項
-  - 選單中優先顯示 `[Auto] main.py`
-  - 按 Enter 快速執行 main.py
+- 若專案只有 `main.py`，直接執行（跳過選單）/ If the project only has main.py, run it directly (skip the menu)
+- 若有 `main.py` + 其他檔案，提供快捷選項 / If there are main.py and other files, provide a quick option
+  - 選單中優先顯示 `[Auto] main.py` / Prioritize displaying [Auto] main.py in the menu
+  - 按 Enter 快速執行 main.py / Press Enter to quickly run main.py
 
-**實現難度：** ⭐ 低
+**實現難度 / Difficulty:** ⭐ 低 / Low
 
-**預期效果：** 減少重複選擇操作，加快啟動速度
+**預期效果 / Expected Effect:** 減少重複選擇操作，加快啟動速度 / Reduce repetitive selection and speed up launch
 
 ---
 
-#### 2. HTML 靜態專案支援
+#### 2. HTML 靜態專案支援 / HTML Static Project Support
 
-**目標：** 擴展至 Web 前端專案
+**目標 / Goal:** 擴展至 Web 前端專案 / Extend support to Web frontend projects
 
-**實現方案（階段性）：**
+**實現方案（階段性）/ Implementation Plan (Phased):**
 
-**Phase 1：靜態 HTML 支援**
-- 偵測條件：資料夾內有 `index.html` 或任意 `*.html`
-- 啟動方式：用系統預設瀏覽器打開 `index.html`
-- 無需虛擬環境檢查
+**Phase 1：靜態 HTML 支援 / Phase 1: Static HTML Support**
+- 偵測條件：資料夾內有 `index.html` 或任意 `*.html` / Detection: Contains index.html or any *.html
+- 啟動方式：用系統預設瀏覽器打開 `index.html` / Launch: Open index.html in the default system browser
+- 無需虛擬環境檢查 / No virtual environment check needed
 
-**Phase 2：進階支援（後期可考慮）**
-- Node.js 專案：偵測 `package.json`，執行 `npm start`
-- Python HTTP Server：偵測特定配置檔，啟動後自動開啟瀏覽器
+**Phase 2：進階支援（後期可考慮）/ Phase 2: Advanced Support (Future consideration)**
+- Node.js 專案：偵測 `package.json`，執行 `npm start` / Node.js projects: Detect package.json, run npm start
+- Python HTTP Server：偵測特定配置檔，啟動後自動開啟瀏覽器 / Python HTTP Server: Detect config files, launch and auto-open browser
 
-**實現難度：** Phase 1 ⭐ 低 | Phase 2 ⭐⭐⭐ 中高
+**實現難度 / Difficulty:** Phase 1 ⭐ 低 / Low | Phase 2 ⭐⭐⭐ 中高 / Medium-High
 
-**預期效果：** 統一管理 Python + Web 專案，一個工具支援多類型開發
+**預期效果 / Expected Effect:** 統一管理 Python + Web 專案，一個工具支援多類型開發 / Unified management of Python + Web projects, supporting multiple development types with one tool
 
 ---
 
 ### 建議優先順序 / Priority Order
 
-| 優先級 | 功能 | 預計工時 | 難度 |
+| 優先級 / Priority | 功能 / Feature | 預計工時 / Est. Time | 難度 / Difficulty |
 |------|------|---------|------|
-| 1 | 自動執行 main.py | 1-2 小時 | ⭐ |
-| 2 | HTML 靜態支援 | 2-3 小時 | ⭐⭐ |
-| 3 | Node.js 專案支援 | 2-3 小時 | ⭐⭐ |
-| 4 | Shell Script / Ruby 支援 | 2-3 小時 | ⭐⭐ |
-| 5 | 搜尋/篩選功能 | 3-4 小時 | ⭐⭐ |
-| 6 | 設定檔支援 (`.launcher.config`) | 4-5 小時 | ⭐⭐⭐ |
-| 7 | 記憶上次選擇 | 2-3 小時 | ⭐⭐ |
+| 1 | 自動執行 main.py / Auto-run main.py | 1-2 小時 / hours | ⭐ |
+| 2 | HTML 靜態支援 / Static HTML | 2-3 小時 / hours | ⭐⭐ |
+| 3 | Node.js 專案支援 / Node.js | 2-3 小時 / hours | ⭐⭐ |
+| 4 | Shell Script / Ruby 支援 / Shell/Ruby | 2-3 小時 / hours | ⭐⭐ |
+| 5 | 搜尋篩選功能 / Search & Filter | 3-4 小時 / hours | ⭐⭐ |
+| 6 | 設定檔支援 / Config File | 4-5 小時 / hours | ⭐⭐⭐ |
+| 7 | 記憶上次選擇 / Remember last choice | 2-3 小時 / hours | ⭐⭐ |
 
 ---
 
 ### 支援的語言和框架 / Supported Languages & Frameworks
 
-#### 第一階段（易於快速支援）
+#### 第一階段（易於快速支援）/ Phase 1 (Easy & Quick)
 
-| 語言/框架 | 偵測方式 | 啟動命令 | 難度 | 備註 |
+| 語言與框架 / Lang & Framework | 偵測方式 / Detection | 啟動命令 / Command | 難度 / Difficulty | 備註 / Notes |
 |---------|--------|--------|------|------|
-| **Python** ✅ | `.venv` / `venv` | `python script.py` | ⭐ | 已支援 |
-| **HTML** 🔜 | `index.html` / `*.html` | 系統瀏覽器打開 | ⭐ | 即將支援 |
-| **Node.js** 🔜 | `package.json` | `npm start` / `yarn start` | ⭐⭐ | 計劃支援 |
-| **Shell Script** 🔜 | `*.sh` / `*.bash` | `bash script.sh` | ⭐ | 計劃支援 |
-| **Ruby** 🔜 | `Gemfile` | `ruby main.rb` | ⭐⭐ | 計劃支援 |
+| **Python** ✅ | `.venv` / `venv` | `python script.py` | ⭐ | 已支援 / Supported |
+| **HTML** 🔜 | `index.html` / `*.html` | 系統瀏覽器打開 / Open in browser | ⭐ | 即將支援 / Upcoming |
+| **Node.js** 🔜 | `package.json` | `npm start` / `yarn start` | ⭐⭐ | 計劃支援 / Planned |
+| **Shell Script** 🔜 | `*.sh` / `*.bash` | `bash script.sh` | ⭐ | 計劃支援 / Planned |
+| **Ruby** 🔜 | `Gemfile` | `ruby main.rb` | ⭐⭐ | 計劃支援 / Planned |
 
-#### 第二階段（中等複雜度）
+#### 第二階段（中等複雜度）/ Phase 2 (Medium Complexity)
 
-| 語言/框架 | 偵測方式 | 啟動命令 | 難度 | 備註 |
+| 語言與框架 / Lang & Framework | 偵測方式 / Detection | 啟動命令 / Command | 難度 / Difficulty | 備註 / Notes |
 |---------|--------|--------|------|------|
-| **Go** | `main.go` / `go.mod` | `go run main.go` | ⭐⭐ | 後續擴展 |
-| **Rust** | `Cargo.toml` | `cargo run` | ⭐⭐ | 後續擴展 |
-| **PHP** | `index.php` / `composer.json` | `php -S localhost:8000` | ⭐⭐ | 後續擴展 |
-| **Vue/React** | `package.json` + `vite.config` | `npm run dev` | ⭐⭐ | 後續擴展 |
+| **Go** | `main.go` / `go.mod` | `go run main.go` | ⭐⭐ | 後續擴展 / Future |
+| **Rust** | `Cargo.toml` | `cargo run` | ⭐⭐ | 後續擴展 / Future |
+| **PHP** | `index.php` / `composer.json` | `php -S localhost:8000` | ⭐⭐ | 後續擴展 / Future |
+| **Vue/React** | `package.json` + `vite.config` | `npm run dev` | ⭐⭐ | 後續擴展 / Future |
 
-#### 第三階段（高複雜度）
+#### 第三階段（高複雜度）/ Phase 3 (High Complexity)
 
-| 語言/框架 | 偵測方式 | 啟動命令 | 難度 | 備註 |
+| 語言與框架 / Lang & Framework | 偵測方式 / Detection | 啟動命令 / Command | 難度 / Difficulty | 備註 / Notes |
 |---------|--------|--------|------|------|
-| **Java** | `pom.xml` / `build.gradle` | `mvn spring-boot:run` | ⭐⭐⭐ | 遠期規劃 |
-| **C/C++** | `Makefile` / `CMakeLists.txt` | `make run` | ⭐⭐⭐ | 遠期規劃 |
-| **Docker** | `Dockerfile` / `docker-compose.yml` | `docker-compose up` | ⭐⭐⭐ | 遠期規劃 |
+| **Java** | `pom.xml` / `build.gradle` | `mvn spring-boot:run` | ⭐⭐⭐ | 遠期規劃 / Far Future |
+| **C/C++** | `Makefile` / `CMakeLists.txt` | `make run` | ⭐⭐⭐ | 遠期規劃 / Far Future |
+| **Docker** | `Dockerfile` / `docker-compose.yml` | `docker-compose up` | ⭐⭐⭐ | 遠期規劃 / Far Future |
 
 ---
 
 ### 架構改進計畫 / Architecture Improvements
 
-為了支援多種語言，計畫實現以下架構改進：
+為了支援多種語言，計畫實現以下架構改進 / To support multiple languages, the following architecture improvements are planned:
 
-**1. 專案類型檢測系統**
+**1. 專案類型檢測系統 / Project Type Detection System**
 ```bash
 project_type() {
   if [[ -f "$1/package.json" ]]; then echo "node"
