@@ -177,3 +177,158 @@ A: The virtual environment may have been created on a different OS. Recreate it 
 ## 授權 / License
 
 MIT License — 詳見 `LICENSE` 檔案 / See `LICENSE` file for details.
+
+---
+
+## 🚀 路線圖 / Roadmap
+
+### 短期優化方向 / Short-term
+
+#### 1. 自動偵測執行 main.py
+
+**目標：** 改善單一指令稿專案的使用體驗
+
+- 若專案只有 `main.py`，直接執行（跳過選單）
+- 若有 `main.py` + 其他檔案，提供快捷選項
+  - 選單中優先顯示 `[Auto] main.py`
+  - 按 Enter 快速執行 main.py
+
+**實現難度：** ⭐ 低
+
+**預期效果：** 減少重複選擇操作，加快啟動速度
+
+---
+
+#### 2. HTML 靜態專案支援
+
+**目標：** 擴展至 Web 前端專案
+
+**實現方案（階段性）：**
+
+**Phase 1：靜態 HTML 支援**
+- 偵測條件：資料夾內有 `index.html` 或任意 `*.html`
+- 啟動方式：用系統預設瀏覽器打開 `index.html`
+- 無需虛擬環境檢查
+
+**Phase 2：進階支援（後期可考慮）**
+- Node.js 專案：偵測 `package.json`，執行 `npm start`
+- Python HTTP Server：偵測特定配置檔，啟動後自動開啟瀏覽器
+
+**實現難度：** Phase 1 ⭐ 低 | Phase 2 ⭐⭐⭐ 中高
+
+**預期效果：** 統一管理 Python + Web 專案，一個工具支援多類型開發
+
+---
+
+### 建議優先順序 / Priority Order
+
+| 優先級 | 功能 | 預計工時 | 難度 |
+|------|------|---------|------|
+| 1 | 自動執行 main.py | 1-2 小時 | ⭐ |
+| 2 | HTML 靜態支援 | 2-3 小時 | ⭐⭐ |
+| 3 | Node.js 專案支援 | 2-3 小時 | ⭐⭐ |
+| 4 | Shell Script / Ruby 支援 | 2-3 小時 | ⭐⭐ |
+| 5 | 搜尋/篩選功能 | 3-4 小時 | ⭐⭐ |
+| 6 | 設定檔支援 (`.launcher.config`) | 4-5 小時 | ⭐⭐⭐ |
+| 7 | 記憶上次選擇 | 2-3 小時 | ⭐⭐ |
+
+---
+
+### 支援的語言和框架 / Supported Languages & Frameworks
+
+#### 第一階段（易於快速支援）
+
+| 語言/框架 | 偵測方式 | 啟動命令 | 難度 | 備註 |
+|---------|--------|--------|------|------|
+| **Python** ✅ | `.venv` / `venv` | `python script.py` | ⭐ | 已支援 |
+| **HTML** 🔜 | `index.html` / `*.html` | 系統瀏覽器打開 | ⭐ | 即將支援 |
+| **Node.js** 🔜 | `package.json` | `npm start` / `yarn start` | ⭐⭐ | 計劃支援 |
+| **Shell Script** 🔜 | `*.sh` / `*.bash` | `bash script.sh` | ⭐ | 計劃支援 |
+| **Ruby** 🔜 | `Gemfile` | `ruby main.rb` | ⭐⭐ | 計劃支援 |
+
+#### 第二階段（中等複雜度）
+
+| 語言/框架 | 偵測方式 | 啟動命令 | 難度 | 備註 |
+|---------|--------|--------|------|------|
+| **Go** | `main.go` / `go.mod` | `go run main.go` | ⭐⭐ | 後續擴展 |
+| **Rust** | `Cargo.toml` | `cargo run` | ⭐⭐ | 後續擴展 |
+| **PHP** | `index.php` / `composer.json` | `php -S localhost:8000` | ⭐⭐ | 後續擴展 |
+| **Vue/React** | `package.json` + `vite.config` | `npm run dev` | ⭐⭐ | 後續擴展 |
+
+#### 第三階段（高複雜度）
+
+| 語言/框架 | 偵測方式 | 啟動命令 | 難度 | 備註 |
+|---------|--------|--------|------|------|
+| **Java** | `pom.xml` / `build.gradle` | `mvn spring-boot:run` | ⭐⭐⭐ | 遠期規劃 |
+| **C/C++** | `Makefile` / `CMakeLists.txt` | `make run` | ⭐⭐⭐ | 遠期規劃 |
+| **Docker** | `Dockerfile` / `docker-compose.yml` | `docker-compose up` | ⭐⭐⭐ | 遠期規劃 |
+
+---
+
+### 架構改進計畫 / Architecture Improvements
+
+為了支援多種語言，計畫實現以下架構改進：
+
+**1. 專案類型檢測系統**
+```bash
+project_type() {
+  if [[ -f "$1/package.json" ]]; then echo "node"
+  elif [[ -f "$1/Gemfile" ]]; then echo "ruby"
+  elif [[ -f "$1/go.mod" ]]; then echo "go"
+  elif [[ -f "$1/Cargo.toml" ]]; then echo "rust"
+  elif [[ -f "$1/.venv" || -d "$1/venv" ]]; then echo "python"
+  elif [[ -f "$1/index.html" ]]; then echo "html"
+  fi
+}
+```
+
+**2. 統一啟動邏輯**
+- 根據專案類型自動選擇啟動命令
+- 統一的菜單界面，支援所有專案類型
+- 智能檔案偵測（每種語言的主檔案優先級）
+
+**3. 跨平台相容性**
+- Windows (`.bat`) 和 Linux/macOS (`.sh`) 均支援
+- 自動選擇平台相適應的虛擬環境路徑
+- 平台特定的啟動命令適配
+
+---
+
+### 衍生改進想法 / Future Enhancements
+
+**核心體驗改進**
+- 🔹 **OS 智慧適配**：自動根據當前作業系統選擇虛擬環境路徑
+- 🔹 **快取機制**：加速已掃描的專案列表重新載入
+- 🔹 **詳細除錯資訊**：指令稿執行失敗時提供更多診斷訊息
+- 🔹 **跨平台虛擬環境檢查**：偵測 `.venv` 是否與當前 OS 相容
+
+**多語言支援**
+- 🔹 **共通檔案偵測**：對每種語言自動偵測主檔案（`main.py`、`index.js`、`Main.java` 等）
+- 🔹 **依賴檢查**：執行前檢查必要的工具/環境是否已安裝
+- 🔹 **自訂啟動命令**：允許透過 `.launcher.config` 自訂各類型專案的啟動方式
+
+**使用者體驗**
+- 🔹 **快捷鍵支援**：快速訪問常用專案（例如 `launcher project-name`）
+- 🔹 **收藏夾功能**：標記常用專案以便快速存取
+- 🔹 **最近使用記錄**：記住上次選擇的專案和檔案
+
+---
+
+## 開發進度追蹤 / Development Progress
+
+### v1.0（已發佈）
+- ✅ Python 專案自動偵測
+- ✅ 虛擬環境自動選擇
+- ✅ 互動式菜單
+- ✅ 跨平台支援 (Windows, Linux, macOS)
+
+### v1.1（計劃中）
+- 🔜 自動執行 main.py
+- 🔜 HTML 靜態網站支援
+- 🔜 Node.js 專案支援
+
+### v2.0（未來規劃）
+- 🔲 多語言完整支援（Shell, Ruby, Go, Rust, PHP）
+- 🔲 設定檔系統
+- 🔲 智慧快取機制
+- 🔲 快捷鍵/快速訪問
