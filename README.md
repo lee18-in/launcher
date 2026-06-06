@@ -1,53 +1,42 @@
 
-https://github.com/lee18-in/
-
-lee18.in
-lee18-in · he/him
-lee18.in's Toolkit. Crafting custom tools tailored to personal workflow habits. lee18.in 的軟體工具箱。撰寫屬於我自己用習慣的工具。
-
-只要我有 VSCode + Python，我的 VSCode 就是我的跨平台軟體商店。
-這個啟動器就是在實現這個理想。
-
 # Python 專案啟動器 / Python Project Launcher
 
-快速啟動位於同目錄的多個 Python 專案。啟動器會自動掃描虛擬環境和 Python 檔案，透過互動式選單讓你選擇要執行的專案和指令稿。
+一個跨平台的 Python 專案啟動工具，用單一 Polyglot 腳本支援 Windows、Linux 和 macOS。快速掃描並執行位於同目錄的多個 Python 專案。
 
-Quickly launch multiple Python projects in the same directory. The launcher automatically scans for virtual environments and Python files, then presents an interactive menu for you to select which project and script to run.
+A cross-platform Python project launcher that supports Windows, Linux, and macOS with a single Polyglot script. Quickly scan and run multiple Python projects in the same directory.
 
-**支援平台 / Supported Platforms:**
-- `launcher.bat` — Windows
-- `launcher.sh` — Linux / macOS
+## 📋 功能特性 / Features
 
-## 結構示例 / Directory Structure
+- ✅ **一個檔案，全平台支援** — 單一 `run.cmd` 同時相容 Windows Batch、Bash (Linux/macOS)
+- ✅ **自動掃描虛擬環境** — 智能偵測 `.venv` 或 `venv` 資料夾
+- ✅ **互動式選單** — 逐步引導選擇專案和執行檔案
+- ✅ **優先級排序** — `main.py` > `app.py` > `mani.py` > 其他 `.py` 檔案
+- ✅ **單檔自動執行** — 只有一個 Python 檔案時直接運行
 
-啟動器位於 `launcher/` 資料夾，會自動掃描其上層目錄的所有 Python 專案：
+## 🚀 快速開始 / Quick Start
 
-The launcher is in the `launcher/` folder and automatically scans Python projects in its parent directory:
+### 前置準備 / Prerequisites
 
-```text
-github/                          ← 啟動器掃描這個目錄
-├── launcher/
-│   ├── launcher.bat
-│   ├── launcher.sh
-│   └── README.md
-├── FibonacciSpiralDotPattern/    ← 會被偵測到
-├── PythonCPK/                    ← 會被偵測到
-├── QrcodeGenerator/              ← 會被偵測到
-└── VoltMatch/                    ← 會被偵測到
+在 `launcher/` 的上層目錄（通常是 `github/`）中存放 Python 專案：
+
 ```
-
-執行啟動器時，會掃描 `github/` 底下所有含有虛擬環境和 `.py` 檔案的資料夾。
-
-When you run the launcher, it scans all folders in `github/` that contain a virtual environment and at least one `.py` file.
-
-## 快速開始 / Quick Start
+github/
+├── launcher/                   ← 啟動器在這裡
+│   └── run.cmd
+├── project1/                   ← Python 專案 1
+│   ├── .venv/
+│   └── main.py
+└── project2/                   ← Python 專案 2
+    ├── .venv/
+    └── app.py
+```
 
 ### Windows
 
-直接雙擊 `launcher.bat`，或從 CMD/PowerShell 執行：
+在 `github/` 目錄中直接雙擊 `launcher/run.cmd`，或從命令列執行：
 
-```bat
-launcher\launcher.bat
+```cmd
+launcher\run.cmd
 ```
 
 ### Linux / macOS
@@ -55,188 +44,211 @@ launcher\launcher.bat
 在終端執行：
 
 ```bash
-./launcher/launcher.sh
+cd ~/path/to/github
+./launcher/run.cmd
 ```
 
-如果沒有執行權限，先執行：
+**第一次執行時，如果沒有執行權限：**
 
 ```bash
-chmod +x launcher/launcher.sh
+chmod +x ./launcher/run.cmd
 ```
 
-## 使用流程 / Workflow
+## 📖 使用流程 / Workflow
 
-啟動後，依次選擇要執行的專案和指令稿：
+### 第一步：選擇專案 / Step 1: Select Project
 
-After launching, select the project and script you want to run:
-
-**第一步：選擇專案 / Step 1: Select Project**
+啟動器會掃描並列出所有符合條件的專案：
 
 ```
 Select project folder:
-  1) FibonacciSpiralDotPattern
-  2) NP
-  3) PythonCPK
-  4) QrcodeGenerator
-  5) VoltMatch
-  6) rs232-vi-sequence-controller
+  1) project1
+  2) project2
+  3) project3
   0) Exit
 Choose:
 ```
 
-**第二步：選擇指令稿 / Step 2: Select Script**
+### 第二步：選擇執行檔案 / Step 2: Select Python File
+
+根據檔案優先級自動排序，或提供選單讓你選擇：
 
 ```
 Select Python file:
   1) main.py
   2) app.py
-  3) other_file.py
+  3) other_script.py
   0) Exit
 Choose:
 ```
 
-確認後，啟動器會用該專案的虛擬環境 Python 執行你選擇的指令稿。
+### 第三步：執行 / Step 3: Execute
 
-The launcher will then execute the selected Python file using the project's virtual environment.
+啟動器會使用該專案的虛擬環境 Python 執行選定的檔案：
 
-## 掃描規則 / Discovery Rules
+```
+Running: /path/to/project/.venv/bin/python main.py
+```
 
-### 哪些專案會被列出 / What Projects are Listed
+## 🔍 專案偵測規則 / Discovery Rules
 
 啟動器只會列出同時符合以下條件的資料夾：
 
-The launcher only lists folders that meet ALL these conditions:
+- ✅ 包含虛擬環境資料夾：`.venv/` 或 `venv/`
+- ✅ 至少包含一個 `.py` 檔案
 
-- ✅ 含有 `.venv` 或 `venv` 虛擬環境資料夾
-- ✅ 至少有一個 `.py` 檔案
+其他資料夾會被忽略。
 
-Contains a `.venv` or `venv` folder AND at least one `.py` file.
+### Python 檔案優先級 / Python File Priority
 
-### 指令稿排序 / Script Ordering
+選擇要執行的 Python 檔案時，優先級依序為：
 
-指令稿會按以下順序排列：
+1. **main.py** — 優先顯示 (自動選擇)
+2. **app.py** — 次優先 (自動選擇)
+3. **mani.py** — 第三優先 (自動選擇)
+4. 其他 `.py` 檔案 — 按字母順序排列
 
-Scripts are ordered as follows:
+### 自動執行邏輯 / Auto-run Logic
 
-1. `main.py` — 優先顯示 (Priority 1)
-2. `app.py` — 次優先 (Priority 2)
-3. 其他 `.py` 檔案 — 按字母順序 (Other `.py` files in alphabetical order)
+- 如果專案只有 **一個** Python 檔案 → 直接執行，不顯示選單
+- 如果存在 `main.py` / `app.py` / `mani.py` 之一 → 自動選擇並執行
+- 其他情況 → 顯示選單讓使用者選擇
 
-## 建立虛擬環境 / Create Virtual Environment
+## 🛠️ 設置虛擬環境 / Setup Virtual Environment
 
-如果新專案還沒有虛擬環境，可以手動建立：
+### 初次設置 / Initial Setup
 
-If a project doesn't have a virtual environment yet, create one:
+#### Windows
 
-### Windows
-
-```bat
+```cmd
+cd project_folder
 py -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-### Linux / macOS
+#### Linux / macOS
 
 ```bash
+cd project_folder
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-## 常見問題 / Troubleshooting
+### 名稱要求 / Naming Requirements
 
-**Q: 為什麼我的專案沒有出現在選單？**
+虛擬環境資料夾**必須**命名為 `.venv` 或 `venv`（其他名稱不會被識別）。
 
-A: 請檢查專案資料夾是否同時具備：
-- 虛擬環境資料夾（`.venv` 或 `venv`）
-- 至少一個 `.py` 檔案
+## ❓ 常見問題 / FAQ
 
-**Q: 如何在 Windows 和 Linux 上共用同一個專案？**
+### Q: 為什麼我的專案沒有出現在選單？
 
-A: 不同平台的虛擬環境不相容。每個平台都需要單獨建立虛擬環境。建議在 `.gitignore` 中忽略 `.venv` 和 `venv` 資料夾，然後在各平台分別建立。
+**A:** 檢查以下條件是否都滿足：
 
-**Q: 啟動後提示找不到 Python？**
+1. 專案資料夾位於 `launcher/` 的上層目錄
+2. 資料夾內有 `.venv/` 或 `venv/` 虛擬環境
+3. 資料夾內至少有一個 `.py` 檔案
 
-A: 該專案的虛擬環境可能是在不同的平台上建立的。請為目前使用的作業系統重新建立虛擬環境。
+### Q: 如何在 Windows 和 Linux 上使用同一個專案？
+
+**A:** 虛擬環境是平台相關的，不相容。每個平台需要單獨建立虛擬環境：
+
+1. 在 `.gitignore` 中新增 `.venv` 和 `venv`
+2. 在 Windows 上執行虛擬環境設置
+3. 在 Linux/macOS 上分別執行虛擬環境設置
+
+### Q: Python not found / 找不到 Python
+
+**A:** 虛擬環境可能是在不同作業系統上建立的。解決方法：
+
+```bash
+# 刪除舊環境
+rm -rf .venv
+
+# 為目前系統重建虛擬環境
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+```
+
+### Q: 執行後沒有反應 / Script doesn't respond
+
+**A:** 確保：
+
+1. 在正確的目錄執行（`launcher/` 的上層目錄）
+2. 檔案有執行權限（Linux/macOS 執行 `chmod +x ./launcher/run.cmd`）
+3. Python 虛擬環境路徑正確
+
+## 📁 目錄結構示例 / Directory Structure Example
+
+```
+github/
+├── .git/
+├── .gitignore
+├── launcher/                   ← 啟動器專案
+│   ├── .git/
+│   ├── run.cmd            ← 主要執行檔
+│   ├── LICENSE
+│   └── README.md
+│
+├── FibonacciSpiralDotPattern/   ← 會被偵測到 ✓
+│   ├── .venv/
+│   ├── fibonacci_spiral.py
+│   ├── requirements.txt
+│   └── README.md
+│
+├── PythonCPK/                   ← 會被偵測到 ✓
+│   ├── .venv/
+│   ├── app.py
+│   ├── DATA.csv
+│   ├── requirements.txt
+│   └── README.md
+│
+├── QrcodeGenerator/             ← 會被偵測到 ✓
+│   ├── .venv/
+│   ├── QrcodeGenerator.py
+│   ├── requirements.txt
+│   └── README.md
+│
+├── VoltMatch/                   ← 會被偵測到 ✓
+│   ├── .venv/
+│   ├── main.py
+│   ├── config.py
+│   ├── requirements.txt
+│   └── README.md
+│
+└── inactive_project/            ← 不會出現 ✗
+    ├── main.py                  (沒有虛擬環境)
+    └── requirements.txt
+```
+
+## 🔧 技術細節 / Technical Details
+
+### Polyglot 腳本實現
+
+`run.cmd` 是一個混合腳本，同時相容兩種環境：
+
+- **Windows 部分** — 標準 Windows Batch 指令
+- **Unix 部分** — Bash/Shell 指令碼
+
+檔案在 Windows 上被視為批次檔執行，在 Linux/macOS 上被 shell 解釋為腳本。
+
+### 平台差異處理
+
+| 項目 | Windows | Linux/macOS |
+|-----|---------|-----------|
+| 虛擬環境路徑 | `.venv\Scripts\python.exe` | `.venv/bin/python` |
+| 路徑分隔符 | `\` | `/` |
+| 指令語法 | Batch | Bash |
+| 文件權限 | 自動 | 需設置執行權限 |
+
+## 📜 授權 / License
+
+MIT License — 詳見 [LICENSE](LICENSE) 檔案
 
 ---
 
-**Q: Why doesn't my project appear in the menu?**
-
-A: Check that your project folder has both:
-- A virtual environment folder (`.venv` or `venv`)
-- At least one `.py` file
-
-**Q: How do I share a project between Windows and Linux?**
-
-A: Virtual environments are platform-specific. Create separate virtual environments on each platform. Add `.venv` and `venv` to `.gitignore`.
-
-**Q: Python not found after launching?**
-
-A: The virtual environment may have been created on a different OS. Recreate it for your current platform.
-
-## 授權 / License
-
-MIT License — 詳見 `LICENSE` 檔案 / See `LICENSE` file for details.
-
----
-
-## 🚀 路線圖 / Roadmap
-
-### 短期優化方向 / Short-term
-
-#### 1. 自動偵測執行 main.py / Auto-detect and Run main.py
-
-**目標 / Goal:** 改善單一指令稿專案的使用體驗 / Improve user experience for single-script projects
-
-- 若專案只有 `main.py`，直接執行（跳過選單）/ If the project only has main.py, run it directly (skip the menu)
-- 若有 `main.py` + 其他檔案，提供快捷選項 / If there are main.py and other files, provide a quick option
-  - 選單中優先顯示 `[Auto] main.py` / Prioritize displaying [Auto] main.py in the menu
-  - 按 Enter 快速執行 main.py / Press Enter to quickly run main.py
-
-**實現難度 / Difficulty:** ⭐ 低 / Low
-
-**預期效果 / Expected Effect:** 減少重複選擇操作，加快啟動速度 / Reduce repetitive selection and speed up launch
-
----
-
-#### 2. HTML 靜態專案支援 / HTML Static Project Support
-
-**目標 / Goal:** 擴展至 Web 前端專案 / Extend support to Web frontend projects
-
-**實現方案（階段性）/ Implementation Plan (Phased):**
-
-**Phase 1：靜態 HTML 支援 / Phase 1: Static HTML Support**
-- 偵測條件：資料夾內有 `index.html` 或任意 `*.html` / Detection: Contains index.html or any *.html
-- 啟動方式：用系統預設瀏覽器打開 `index.html` / Launch: Open index.html in the default system browser
-- 無需虛擬環境檢查 / No virtual environment check needed
-
-**Phase 2：進階支援（後期可考慮）/ Phase 2: Advanced Support (Future consideration)**
-- Node.js 專案：偵測 `package.json`，執行 `npm start` / Node.js projects: Detect package.json, run npm start
-- Python HTTP Server：偵測特定配置檔，啟動後自動開啟瀏覽器 / Python HTTP Server: Detect config files, launch and auto-open browser
-
-**實現難度 / Difficulty:** Phase 1 ⭐ 低 / Low | Phase 2 ⭐⭐⭐ 中高 / Medium-High
-
-**預期效果 / Expected Effect:** 統一管理 Python + Web 專案，一個工具支援多類型開發 / Unified management of Python + Web projects, supporting multiple development types with one tool
-
----
-
-### 建議優先順序 / Priority Order
-
-| 優先級 / Priority | 功能 / Feature | 預計工時 / Est. Time | 難度 / Difficulty |
-|------|------|---------|------|
-| 1 | 自動執行 main.py / Auto-run main.py | 1-2 小時 / hours | ⭐ |
-| 2 | HTML 靜態支援 / Static HTML | 2-3 小時 / hours | ⭐⭐ |
-| 3 | Node.js 專案支援 / Node.js | 2-3 小時 / hours | ⭐⭐ |
-| 4 | Shell Script / Ruby 支援 / Shell/Ruby | 2-3 小時 / hours | ⭐⭐ |
-| 5 | 搜尋篩選功能 / Search & Filter | 3-4 小時 / hours | ⭐⭐ |
-| 6 | 設定檔支援 / Config File | 4-5 小時 / hours | ⭐⭐⭐ |
-| 7 | 記憶上次選擇 / Remember last choice | 2-3 小時 / hours | ⭐⭐ |
-
----
-
-### 支援的語言和框架 / Supported Languages & Frameworks
-
-#### 第一階段（易於快速支援）/ Phase 1 (Easy & Quick)
+**作者 / Author:** lee18-in  
+**GitHub:** https://github.com/lee18-in/launcher  
+**更新日期 / Last Updated:** 2026-06
 
 | 語言與框架 / Lang & Framework | 偵測方式 / Detection | 啟動命令 / Command | 難度 / Difficulty | 備註 / Notes |
 |---------|--------|--------|------|------|
