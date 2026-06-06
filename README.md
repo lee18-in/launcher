@@ -334,10 +334,15 @@ project_type() {
 - ✅ 互動式菜單
 - ✅ 跨平台支援 (Windows, Linux, macOS)
 
+### v1.0+（已發佈）
+- ✅ 自動執行 main.py
+- ✅ 支援 app.py / mani.py 自動偵測
+- ✅ 單檔案專案自動運行
+
 ### v1.1（計劃中）
-- 🔜 自動執行 main.py
 - 🔜 HTML 靜態網站支援
 - 🔜 Node.js 專案支援
+- 🔜 自動偵測缺少虛擬環境的 Python 專案，並提供快速建立選項
 
 ### v2.0（未來規劃）
 - 🔲 多語言完整支援（Shell, Ruby, Go, Rust, PHP）
