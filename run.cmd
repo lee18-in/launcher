@@ -79,55 +79,59 @@ if (( ${#projects[@]} == 0 )); then
   exit 1
 fi
 
-project="$(choose_from "Select project folder:" "${projects[@]}")"
-if [[ "$project" == "__EXIT__" ]]; then
-  exit 0
-fi
-project_dir="$(cd "$project" && pwd)"
+while true; do
+  cd "$PROJECTS_ROOT" || exit 1
 
-if [[ -x "$project_dir/.venv/bin/python" ]]; then
-  python_bin="$project_dir/.venv/bin/python"
-elif [[ -x "$project_dir/venv/bin/python" ]]; then
-  python_bin="$project_dir/venv/bin/python"
-else
-  echo "No Linux Python executable found in $project/.venv/bin/python or $project/venv/bin/python."
-  echo "Create the Linux virtual environment first, for example: python3 -m venv .venv"
-  exit 1
-fi
-
-py_files=()
-for candidate in main.py app.py; do
-  if [[ -f "$project/$candidate" ]]; then
-    py_files+=("$candidate")
-  fi
-done
-
-shopt -s nullglob
-for file in "$project"/*.py; do
-  name="$(basename "$file")"
-  if [[ "$name" != "main.py" && "$name" != "app.py" ]]; then
-    py_files+=("$name")
-  fi
-done
-shopt -u nullglob
-
-if [[ -f "$project/main.py" ]]; then
-  main_file="main.py"
-elif [[ -f "$project/mani.py" ]]; then
-  main_file="mani.py"
-elif (( ${#py_files[@]} == 1 )); then
-  main_file="${py_files[0]}"
-else
-  main_file="$(choose_from "Select Python file:" "${py_files[@]}")"
-  if [[ "$main_file" == "__EXIT__" ]]; then
+  project="$(choose_from "Select project folder:" "${projects[@]}")"
+  if [[ "$project" == "__EXIT__" ]]; then
     exit 0
   fi
-fi
+  project_dir="$(cd "$project" && pwd)"
 
-echo ""
-echo "Running: $python_bin $project_dir/$main_file"
-cd "$project_dir" || exit 1
-exec "$python_bin" "$main_file"
+  if [[ -x "$project_dir/.venv/bin/python" ]]; then
+    python_bin="$project_dir/.venv/bin/python"
+  elif [[ -x "$project_dir/venv/bin/python" ]]; then
+    python_bin="$project_dir/venv/bin/python"
+  else
+    echo "No Linux Python executable found in $project/.venv/bin/python or $project/venv/bin/python."
+    echo "Create the Linux virtual environment first, for example: python3 -m venv .venv"
+    continue
+  fi
+
+  py_files=()
+  for candidate in main.py app.py; do
+    if [[ -f "$project/$candidate" ]]; then
+      py_files+=("$candidate")
+    fi
+  done
+
+  shopt -s nullglob
+  for file in "$project"/*.py; do
+    name="$(basename "$file")"
+    if [[ "$name" != "main.py" && "$name" != "app.py" ]]; then
+      py_files+=("$name")
+    fi
+  done
+  shopt -u nullglob
+
+  if [[ -f "$project/main.py" ]]; then
+    main_file="main.py"
+  elif [[ -f "$project/mani.py" ]]; then
+    main_file="mani.py"
+  elif (( ${#py_files[@]} == 1 )); then
+    main_file="${py_files[0]}"
+  else
+    main_file="$(choose_from "Select Python file:" "${py_files[@]}")"
+    if [[ "$main_file" == "__EXIT__" ]]; then
+      exit 0
+    fi
+  fi
+
+  echo ""
+  echo "Running: $python_bin $project_dir/$main_file"
+  "$python_bin" "$project_dir/$main_file" &
+  echo "Launched (PID $!). Returning to menu..."
+done
 
 # Bash 執行完畢後直接退出，避免往下執行到 Windows 區塊
 exit 0
@@ -226,15 +230,10 @@ set "MAIN_FILE=!FILE_%FILE_CHOICE%!"
 :run_file
 echo.
 echo Running: "%PYTHON_EXE%" "%PROJECT_DIR%\%MAIN_FILE%"
-pushd "%PROJECT_DIR%"
 echo.
-"%PYTHON_EXE%" "%MAIN_FILE%"
-set "EXIT_CODE=%ERRORLEVEL%"
-popd
-echo.
-echo App exited with code %EXIT_CODE%.
-pause
-exit /b %EXIT_CODE%
+start "" /d "%PROJECT_DIR%" "%PYTHON_EXE%" "%MAIN_FILE%"
+echo Launched! Returning to menu...
+goto project_menu
 
 :maybe_add
 set "DIR=%~1"
