@@ -189,12 +189,21 @@ if exist "%PROJECT_DIR%\.venv\Scripts\python.exe" (
 )
 
 set "FILE_COUNT=0"
-call :add_file_if_exists "main.py"
-call :add_file_if_exists "app.py"
+if exist "%PROJECT%\main.py" (
+    set /a FILE_COUNT+=1
+    set "FILE_!FILE_COUNT!=main.py"
+)
+if exist "%PROJECT%\app.py" (
+    set /a FILE_COUNT+=1
+    set "FILE_!FILE_COUNT!=app.py"
+)
 
 for %%F in ("%PROJECT%\*.py") do (
     set "NAME=%%~nxF"
-    if /i not "!NAME!"=="main.py" if /i not "!NAME!"=="app.py" call :add_file "!NAME!"
+    if /i not "!NAME!"=="main.py" if /i not "!NAME!"=="app.py" (
+        set /a FILE_COUNT+=1
+        set "FILE_!FILE_COUNT!=!NAME!"
+    )
 )
 
 if exist "%PROJECT%\main.py" (
@@ -244,11 +253,3 @@ set /a COUNT+=1
 set "PROJECT_%COUNT%=%DIR%"
 exit /b 0
 
-:add_file_if_exists
-if exist "%PROJECT%\%~1" call :add_file "%~1"
-exit /b 0
-
-:add_file
-set /a FILE_COUNT+=1
-set "FILE_%FILE_COUNT%=%~1"
-exit /b 0

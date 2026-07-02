@@ -254,6 +254,22 @@ github/
 
 **如果之後又要在 bash 區塊加中文註解：** 記得先用 `cmd /c run.cmd < NUL` 之類的方式實測一次 Windows 分支還能不能正常跳轉，不要只用肉眼看語法對不對。
 
+---
+
+**現象：** 在 Windows 上，當專案資料夾沒有 `main.py`/`app.py`/`mani.py`、只有兩個以上其他 `.py` 檔案時，理應跳出「Select Python file」選單讓你選，但畫面卻直接印出：
+
+```text
+The system cannot find the batch label specified - add_file
+```
+
+（中文版 Windows 顯示為「找不到指定的批次標籤」），選單內容整個消失，不像 Linux/macOS 那邊「只有一個 .py 就自動跑、多個就給選單」的邏輯一樣正常運作。
+
+**根因：** `:project_menu ... goto project_menu` 這個「往回跳」的主選單迴圈裡，包了一個 `for %%F in (...) do ( ... call :add_file ... )` 迴圈，在裡面用 `call :標籤` 呼叫子程式。這是 `cmd.exe` 一個很經典的 parser bug：只要 `call :label` 是寫在「會被 `goto` 往回重新進入」的區塊內的 `for` 迴圈裡，`cmd.exe` 對批次標籤的搜尋就會壞掉，直接噴「找不到標籤」，跟檔案本身找不找得到 `main.py` 完全無關。
+
+**解法：** 把 `call :add_file` / `call :add_file_if_exists` 這兩層子程式呼叫拿掉，改成直接在 `for` 迴圈內 inline 累加 `FILE_COUNT` 和 `FILE_n` 變數，不再對外 `call`，就不會踩到這個 bug。（[run.cmd](run.cmd) 已修正，並移除了不再需要的 `:add_file_if_exists` / `:add_file` 標籤。）
+
+**通則：** Windows batch 裡，只要某段程式碼「會被 `goto` 迴圈往回重入」，裡面的 `for`/`if` 區塊就盡量避免用 `call :子程式`，改成直接 inline 邏輯，比較不會踩到這類 parser 狀態錯亂的坑。
+
 ## 📜 授權 / License
 
 MIT License — 詳見 [LICENSE](LICENSE) 檔案
