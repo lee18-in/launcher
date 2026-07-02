@@ -4,9 +4,9 @@ goto :windows_start
 ::WINDOWS_BLOCK
 
 # ==========================================
-# [Linux / macOS (Bash) 區塊]
+# [Linux / macOS (Bash) block]
 # ==========================================
-# 確保腳本使用 bash 執行 (若系統預設為 sh/dash 時的保險機制)
+# Ensure this script runs under bash (fallback if the system default shell is sh/dash)
 [ -z "$BASH_VERSION" ] && exec bash "$0" "$@"
 
 set -u
@@ -50,7 +50,7 @@ choose_from() {
     printf 'Choose: ' >&2
     read -r choice
     
-    # 移除使用者可能夾帶的 \r 字元 (若檔案格式在 Git 轉換中變成 CRLF 導致的小問題)
+    # Strip a possible trailing carriage return (in case Git converted line endings to CRLF)
     choice="${choice%$'\r'}"
 
     if [[ "$choice" == "0" ]]; then
@@ -133,12 +133,12 @@ while true; do
   echo "Launched (PID $!). Returning to menu..."
 done
 
-# Bash 執行完畢後直接退出，避免往下執行到 Windows 區塊
+# Exit immediately after bash finishes, to avoid falling through into the Windows block
 exit 0
 
 
 # ==========================================
-# [Windows (Batch) 區塊]
+# [Windows (Batch) block]
 # ==========================================
 :windows_start
 @echo off

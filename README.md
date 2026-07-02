@@ -240,6 +240,20 @@ github/
 | 指令語法 | Batch | Bash |
 | 文件權限 | 自動 | 需設置執行權限 |
 
+### ⚠️ 已知踩過的坑 / Known Pitfall
+
+**現象：** 在 Windows 上執行 `run.cmd` 時，`cmd.exe` 沒有跳到 `:windows_start`，而是把 bash 區塊的內容當成 batch 指令執行，出現一堆亂碼與 `'xxx' 不是內部或外部命令` 的錯誤（即使 `goto :windows_start` 邏輯本身完全正確）。
+
+**根因：** `run.cmd` 是 LF-only 換行的檔案。當 bash-only 區塊裡混有非 ASCII 字元（例如中文註解）時，`cmd.exe` 掃描 `goto`/label 的內部機制會被這個「LF 換行 + 多位元組字元」的組合搞混，導致它算錯檔案位置、從錯誤的地方開始執行，而不是直接跳到 Windows 區塊。
+
+- 純 ASCII + LF：沒問題
+- CRLF + 中文：沒問題（但把整檔轉成 CRLF 會讓 bash 那邊的 heredoc 結尾標記 `::WINDOWS_BLOCK` 比對失敗，等於是拆掉 polyglot 的另一半）
+- **LF + 中文（或任何非 ASCII）同時存在：會炸**
+
+**解法：** 保持整個檔案 LF 換行不變（bash heredoc 需要），但 bash-only 區塊裡的註解一律使用 ASCII（英文），不要放中文或其他非 ASCII 字元。Windows 區塊（`:windows_start` 之後）因為 cmd 已經在正確位置執行，不受此問題影響。
+
+**如果之後又要在 bash 區塊加中文註解：** 記得先用 `cmd /c run.cmd < NUL` 之類的方式實測一次 Windows 分支還能不能正常跳轉，不要只用肉眼看語法對不對。
+
 ## 📜 授權 / License
 
 MIT License — 詳見 [LICENSE](LICENSE) 檔案
