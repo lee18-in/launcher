@@ -3,7 +3,7 @@
 ## A. 目前狀態(每次交接必更新)
 
 - 目前階段: **[build]** 建置階段
-- 最後更新: 2026-07-05 / 當時階段: [build]
+- 最後更新: 2026-07-06 19:35 / 當時階段: [build]
 - 最新 commit: `79ea2c7` 無MAIN.py 修復
 - 進行中任務: 修復 Windows 批次檔相容性，支援多語言啟動
 - 阻塞點: Python 虛擬環境跨平台檢查還沒做
@@ -40,6 +40,20 @@
 
 ## C. 交接日誌(只追加,不刪改;最新在最上,每筆一個小節)
 
+### 2026-07-06 19:35 [maintain] 使用工具: Claude Code (Playbook v2 升級導入)
+
+- 完成了什麼:
+  - 升級 AGENTS.md 至 Playbook v2：添加 Playbook-Version 標記、交接日誌書寫規範、§2.1 Review Loop、修改 §4 含 Git Hook 說明、移除依專案填寫的 §5 並改為指向 LLM_MEMORY.md
+  - 補充 LLM_MEMORY.md〈E. 專案技術脈絡〉區：搬遷舊 AGENTS.md §5 已填的建置指令、測試指令、程式碼慣例
+  - 安裝 Git Hook：建立 scripts/hooks/pre-commit 與 commit-msg，啟用 core.hooksPath
+
+- 下一個 agent 該做什麼:
+  - 完成 Python 虛擬環境跨平台檢查功能（原進行中任務）
+  - 驗證 polyglot run.cmd 在各平台的相容性
+  - 如有新發現的 bug，補充到 README 〈已知踩過的坑〉
+
+- 地雷警告: 無
+
 ### 2026-07-05 14:XX [build] 使用工具: Claude Code (初始化導入)
 
 - 完成了什麼:
@@ -57,3 +71,13 @@
 ## D. 已封存結論(自〈交接日誌〉搬入,唯讀)
 
 （暫無封存內容）
+
+## E. 專案技術脈絡(依專案填寫,agent 得隨專案實況更新,保持精簡)
+
+- **建置指令**: N/A （本專案本身為啟動工具，無需構建）
+- **測試指令**: 手動測試 `./run.cmd`（於 Windows/Linux/macOS 分別驗證）
+- **程式碼慣例**: 
+  - Polyglot Batch/Bash 混合腳本（`run.cmd`）
+  - 整檔 LF 換行（勿改為 CRLF）
+  - **Bash 區塊的註解與字串必須為 ASCII**，禁止中文或非 ASCII 字元（見 README ⚠️ 已知踩過的坑）
+  - Windows 區塊（`:windows_start` 後）可自由使用任何字元

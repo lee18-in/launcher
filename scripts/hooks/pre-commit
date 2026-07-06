@@ -1,0 +1,7 @@
+#!/bin/sh
+# Force every commit to update LLM_MEMORY.md (see AGENTS.md §0); no exceptions.
+if ! git diff --cached --name-only | grep -q '^LLM_MEMORY\.md$'; then
+  echo "Error: This commit does not include changes to LLM_MEMORY.md." >&2
+  echo "Please update the handover log and current status in LLM_MEMORY.md first (see AGENTS.md §0)." >&2
+  exit 1
+fi
