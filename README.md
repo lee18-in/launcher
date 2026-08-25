@@ -1,6 +1,8 @@
 <!-- AI AGENTS: Read ./AGENTS.md first, then ./LLM_MEMORY.md.
      Do NOT write planning content into this file. -->
 
+> - **Language and Encoding Standards**: All system files, code annotations, memory files (`LLM_MEMORY.md`), and handover logs for this project are uniformly encoded in **UTF-8** and **Traditional Chinese** by default.
+
 # Python 專案啟動器 / Python Project Launcher
 
 一個跨平台的 Python 專案啟動工具，用單一 Polyglot 腳本支援 Windows、Linux 和 macOS。快速掃描並執行位於同目錄的多個 Python 專案。
