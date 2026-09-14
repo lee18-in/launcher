@@ -5,7 +5,7 @@
 ## A. 目前狀態(每次交接必更新)
 
 - 目前階段: **[build]** 建置階段
-- 最後更新: 2026-08-25 17:14 / 當時階段: [build]
+- 最後更新: 2026-09-14 10:20 / 當時階段: maintain
 - 交接基準 commit: e9d936b [maintain] 升級 AI agent 工作流至 Playbook v2
 - 進行中任務: 修復 Windows 批次檔相容性，支援多語言啟動
 - 阻塞點: Python 虛擬環境跨平台檢查還沒做
@@ -41,6 +41,12 @@
 - [ ] 快捷鍵/快速訪問（例如 `launcher project-name` 直接跳過菜單）
 
 ## C. 交接日誌(只追加,不刪改;最新在最上,每筆一個小節)
+
+### 2026-09-14 10:20 [maintain] 使用工具: Antigravity
+
+- 完成了什麼: 依使用者指示，將 AGENTS.md 升級至 Playbook v10（三層架構規範、防膨脹門檻改為 10KB、單筆長度上限約 1200 bytes、Review Loop 排除 COMPONENT_MAP.md）。
+- 下一個 agent 該做什麼: 使用者明示推送到 GitHub（豁免本次審閱）。請後續接手的 agent 依各自專案階段推進任務。
+- 地雷警告: 無
 
 ### 2026-08-25 17:14 [maintain] 使用工具: Claude Code
 
