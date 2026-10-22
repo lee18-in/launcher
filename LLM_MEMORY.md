@@ -5,7 +5,7 @@
 ## A. 目前狀態(每次交接必更新)
 
 - 目前階段: **[build]** 建置階段
-- 最後更新: 2026-09-14 10:20 / 當時階段: maintain
+$12026-10-22 11:15 / 當時階段: maintain
 - 交接基準 commit: e9d936b [maintain] 升級 AI agent 工作流至 Playbook v2
 - 進行中任務: 修復 Windows 批次檔相容性，支援多語言啟動
 - 阻塞點: Python 虛擬環境跨平台檢查還沒做
@@ -41,6 +41,13 @@
 - [ ] 快捷鍵/快速訪問（例如 `launcher project-name` 直接跳過菜單）
 
 ## C. 交接日誌(只追加,不刪改;最新在最上,每筆一個小節)
+
+### 2026-10-22 11:15 [maintain] 使用工具: Cursor Auto
+
+- 完成了什麼: 依 AI_AGENT_Playbook_Online.md 將本目錄 AGENTS.md 自 v10 整份覆蓋升級至 v11（online）。覆蓋前 AGENTS.md hash: 8155628（可用 `git show .md` 找回）。v11 重點：§0 接手環境自檢／驗證方式必填／待審下壓保護；§2.1 使用者簽結與批次審閱。
+- 驗證方式: 讀檔確認開頭 `<!-- Playbook-Version: 11 -->` 與 `<!-- Playbook-Variant: online -->`；內容含「接手環境自檢」「驗證方式」「待審下壓」「使用者簽結」。
+- 下一個 agent 該做什麼: 無（純憲法升級；若接手請依 §0 做 hooksPath 自檢）
+- 地雷警告: 無
 
 ### 2026-09-14 10:20 [maintain] 使用工具: Antigravity
 
