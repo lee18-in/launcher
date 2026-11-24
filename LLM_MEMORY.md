@@ -5,8 +5,8 @@
 ## A. 目前狀態(每次交接必更新)
 
 - 目前階段: **[build]** 建置階段
-- 最後更新: 2026-11-18 19:39 / 當時階段: maintain
-- 交接基準 commit: 0890a67 [maintain] 升級 AI agent 工作流憲法至 Online v13
+- 最後更新: 2026-11-24 14:07 / 當時階段: maintain
+- 交接基準 commit: 9be0628 [maintain] 依 §2.1 記錄使用者簽結並更新交接基準
 - 進行中任務: 修復 Windows 批次檔相容性，支援多語言啟動
 - 阻塞點: Python 虛擬環境跨平台檢查還沒做（v12／v13 已於 2026-11-18 19:39 由使用者簽結）
 
@@ -41,6 +41,13 @@
 - [ ] 快捷鍵/快速訪問（例如 `launcher project-name` 直接跳過菜單）
 
 ## C. 交接日誌(只追加,不刪改;最新在最上,每筆一個小節)
+
+### 2026-11-24 14:07 [maintain] 使用工具: Antigravity (Gemini 4 Neon)
+
+- 完成了什麼: 依使用者「12全區佈署」指示將本目錄 `AGENTS.md` 自 Online v13 整份覆蓋升級至 v14（無模板外自訂規則；覆蓋前 hash `0890a67`）；無待審已覆蓋交接基準為 `9be0628`。為何改：全 12 倉同步 Online v14 憲法。
+- 驗證方式: `head -n 2 AGENTS.md` 為 `Playbook-Version: 14` 與 `Playbook-Variant: online`，全文 `10,191 B`/89 行與 `Andy_AI_AGENT_WorkFlow/AGENTS.md` 逐位元組一致。
+- 下一個 agent 該做什麼: 本次改動需要審閱：對照 Online v14 模板確認條文一致且 A 區進行中任務未遭改寫。等待 `new session`（或 `/clear` 清空 `context`，建議換模型）審閱。
+- 地雷警告: 未 push；依 §2.1 本 `context` 禁自審。
 
 ### 2026-11-18 19:39 [maintain] 使用工具: Antigravity
 
