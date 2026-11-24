@@ -8,7 +8,7 @@
 - 最後更新: 2026-11-24 14:07 / 當時階段: maintain
 - 交接基準 commit: 9be0628 [maintain] 依 §2.1 記錄使用者簽結並更新交接基準
 - 進行中任務: 修復 Windows 批次檔相容性，支援多語言啟動
-- 阻塞點: Python 虛擬環境跨平台檢查還沒做（v12／v13 已於 2026-11-18 19:39 由使用者簽結）
+- 阻塞點: Python 虛擬環境跨平台檢查還沒做（v12／v13 已於 2026-11-18 19:39 由使用者簽結）；2026-11-23 17:00 待審下壓（基準 `9be0628..f06eec4`）：核對補建 `COMPONENT_MAP.md` 完整收錄 Polyglot 契約與兩項 `cmd.exe` 地雷。
 
 ## B. 規劃(規劃階段 [plan] 專屬區;狀態: 草稿 | 已定案)
 
@@ -48,6 +48,13 @@
 - 驗證方式: `head -n 2 AGENTS.md` 為 `Playbook-Version: 14` 與 `Playbook-Variant: online`，全文 `10,191 B`/89 行與 `Andy_AI_AGENT_WorkFlow/AGENTS.md` 逐位元組一致。
 - 下一個 agent 該做什麼: 本次改動需要審閱：對照 Online v14 模板確認條文一致且 A 區進行中任務未遭改寫。等待 `new session`（或 `/clear` 清空 `context`，建議換模型）審閱。
 - 地雷警告: 未 push；依 §2.1 本 `context` 禁自審。
+
+### 2026-11-23 17:00 [build] 使用工具: Antigravity
+
+- 完成了什麼: 依使用者 2A 補建 `COMPONENT_MAP.md`（遷移舊 E 區、B1 決策及 `README.md` 兩項 Windows `cmd.exe` 硬地雷：LF+非 ASCII 跳轉崩潰、`goto` 迴圈禁 `call :label`），啟用本機 `core.hooksPath=scripts/hooks` 並覆蓋基準 `9be0628`；未改腳本。為何改：補齊 v13 三檔。
+- 驗證方式: `git config --get core.hooksPath`=`scripts/hooks`；對讀 `README.md` 與 `LLM_MEMORY.md`；`python3` 驗本筆 `<1200 B`、C 區 `<10 KB`、`COMPONENT_MAP <16 KB`。
+- 下一個 agent 該做什麼: 本次改動需要審閱：核對 `COMPONENT_MAP.md` 完整收錄 Polyglot 契約與兩項 `cmd.exe` 地雷。等待 `new session` 審閱。
+- 地雷警告: 接手自檢原 `core.hooksPath` 空，已設 `scripts/hooks` 並 `chmod +x`；僅本地提交未 `push`。
 
 ### 2026-11-18 19:39 [maintain] 使用工具: Antigravity
 
@@ -122,12 +129,6 @@
 
 （暫無封存內容）
 
-## E. 專案技術脈絡(依專案填寫,agent 得隨專案實況更新,保持精簡)
+## E. 專案技術脈絡
 
-- **建置指令**: N/A （本專案本身為啟動工具，無需構建）
-- **測試指令**: 手動測試 `./run.cmd`（於 Windows/Linux/macOS 分別驗證）
-- **程式碼慣例**: 
-  - Polyglot Batch/Bash 混合腳本（`run.cmd`）
-  - 整檔 LF 換行（勿改為 CRLF）
-  - **Bash 區塊的註解與字串必須為 ASCII**，禁止中文或非 ASCII 字元（見 README ⚠️ 已知踩過的坑）
-  - Windows 區塊（`:windows_start` 後）可自由使用任何字元
+（已於 2026-11-23 依 AGENTS.md §5 移入 [COMPONENT_MAP.md](COMPONENT_MAP.md)）
