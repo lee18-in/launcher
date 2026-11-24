@@ -5,10 +5,10 @@
 ## A. 目前狀態(每次交接必更新)
 
 - 目前階段: **[build]** 建置階段
-- 最後更新: 2026-11-24 14:07 / 當時階段: maintain
+- 最後更新: 2026-11-24 15:28 / 當時階段: maintain
 - 交接基準 commit: 9be0628 [maintain] 依 §2.1 記錄使用者簽結並更新交接基準
 - 進行中任務: 修復 Windows 批次檔相容性，支援多語言啟動
-- 阻塞點: Python 虛擬環境跨平台檢查還沒做（v12／v13 已於 2026-11-18 19:39 由使用者簽結）；2026-11-23 17:00 待審下壓（基準 `9be0628..f06eec4`）：核對補建 `COMPONENT_MAP.md` 完整收錄 Polyglot 契約與兩項 `cmd.exe` 地雷。
+- 阻塞點: Python 虛擬環境跨平台檢查還沒做（v12／v13 已於 2026-11-18 19:39 由使用者簽結）；2026-11-23 17:00 待審下壓（基準 `9be0628..f06eec4`）：核對補建 `COMPONENT_MAP.md` 完整收錄 Polyglot 契約與兩項 `cmd.exe` 地雷。；2026-11-24 14:07 v14 升級待審下壓（基準 `9be0628..HEAD`，母倉 14:31 已簽結並由本次 v15 整份覆蓋取代）
 
 ## B. 規劃(規劃階段 [plan] 專屬區;狀態: 草稿 | 已定案)
 
@@ -41,6 +41,13 @@
 - [ ] 快捷鍵/快速訪問（例如 `launcher project-name` 直接跳過菜單）
 
 ## C. 交接日誌(只追加,不刪改;最新在最上,每筆一個小節)
+
+### 2026-11-24 15:28 [maintain] Antigravity (Gemini 4 Neon)
+
+- 完成了什麼: 依 user「再部屬12區」將本 dir `AGENTS.md` 自 Online v14 整份覆蓋升至 v15（無模板外自訂規則；覆蓋前 hash `a4f0fad`）；原首筆 v14 待審依 §0 下壓入〈阻塞點〉並守原交接基準。為何改：全 12 倉同步 Online v15 憲法（D38）。
+- 驗證方式: `head -n 2 AGENTS.md` 為 `Playbook-Version: 15`/`Playbook-Variant: online`，全文 `10,219 B`/92 行與母倉逐 byte 一致；日誌 `<10 KB`、本檔 `<16 KB`、本筆 `<1200 B`。
+- 下一個 agent 該做什麼: 本次改動需要審閱：`git diff 9be0628..HEAD` 核對 Online v15 條文一致且 A 區進行中任務未改寫。等待 new session（或 `/clear` 清空 context，建議換模型）審閱。
+- 地雷警告: 未 push；依 §2.1 本 context 禁自審。
 
 ### 2026-11-24 14:07 [maintain] 使用工具: Antigravity (Gemini 4 Neon)
 
