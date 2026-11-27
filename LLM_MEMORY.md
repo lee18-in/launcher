@@ -5,11 +5,17 @@
 ## A. 目前狀態(每次交接必更新)
 
 - 目前階段: **[build]** 建置階段
-- 最後更新: 2026-11-27 10:11 / 當時階段: maintain
+- 最後更新: 2026-11-27 14:35 / 當時階段: build
 - 交接基準 commit: 9be0628 [maintain] 依 §2.1 記錄使用者簽結並更新交接基準
 - 進行中任務: 修復 Windows 批次檔相容性，支援多語言啟動
 - 阻塞點: Python 虛擬環境跨平台檢查還沒做（v12／v13 已於 2026-11-18 19:39 由使用者簽結）；2026-11-23 17:00 待審下壓（基準 `9be0628..f06eec4`）：核對補建 `COMPONENT_MAP.md` 完整收錄 Polyglot 契約與兩項 `cmd.exe` 地雷。；2026-11-24 14:07 v14 升級待審下壓（基準 `9be0628..HEAD`，母倉 14:31 已簽結並由本次 v15 整份覆蓋取代）；2026-11-24 15:28 v15 升級待審下壓（基準 `9be0628..HEAD`，母倉 15:54 已簽結並由本次 v16 整份覆蓋取代）；2026-11-26 10:35 v16 升級待審下壓（基準 `9be0628..HEAD`）
+  - 2026-11-27 10:11 需要審閱（基準 `9be0628..HEAD`）：
+    ### 2026-11-27 10:11 [maintain] Antigravity (Gemini 4 Neon)
 
+    - 完成了什麼: 依 user「推 全倉 套WF」將本 dir `AGENTS.md` 自 Online v16 整份覆蓋升至 v17（§5 禁假優缺點＋§1 `[build]` PDCA Act 閉環；無模板外自訂規則；覆蓋前 hash `8d8635a`）；原首筆待審依 §0 下壓入〈阻塞點〉並守原交接基準。為何改：全 8 倉同步 Online v17 憲法（D41）。
+    - 驗證方式: `head -n 2 AGENTS.md` 為 `Playbook-Version: 17`/`Playbook-Variant: online`，全文 `12,791 B`/93 行與母倉逐 byte 一致；日誌 `<10 KB`、本檔 `<16 KB`、本筆 `<=1200 B`。
+    - 下一個 agent 該做什麼: 本次改動需要審閱：`git diff 9be0628..HEAD` 核對 Online v17 條文一致且 A 區進行中任務未改寫。等待 new session（或 `/clear` 清空 context，建議換模型）審閱。
+    - 地雷警告: 依 user 明示同步後 push；依 §2.1 本 context 禁自審。
 ## B. 規劃(規劃階段 [plan] 專屬區;狀態: 草稿 | 已定案)
 
 ### B1. 架構決策(已定案後鎖定,建置/維運階段不得改)
@@ -41,6 +47,13 @@
 - [ ] 快捷鍵/快速訪問（例如 `launcher project-name` 直接跳過菜單）
 
 ## C. 交接日誌(只追加,不刪改;最新在最上,每筆一個小節)
+
+### 2026-11-27 14:35 [build] Antigravity (Gemini 4 Neon)
+
+- 完成了什麼: 依 [套WF] 執行 Branch C 升級；依 D42 整份覆蓋 Online v17→v18（舊版留存 Git hash `ab1980d`）；補配套 0 檔；原首筆待審依 §0 下壓入〈阻塞點〉並守原交接基準。
+- 驗證方式: `head -n 2 AGENTS.md` 為 `Playbook-Version: 18`/`Playbook-Variant: online`，全文 `13,278 B`/95 行與 bundled 模板逐 byte 一致；日誌 `<10 KB`、本檔 `<16 KB`、本筆 `<=1200 B`。
+- 下一個 agent 該做什麼: 本次改動需要審閱：`git diff 9be0628..HEAD` 核對 Online v18 條文一致且 A 區進行中任務未改寫。等待 new session（或 `/clear` 清空 context，建議換模型）審閱。
+- 地雷警告: 禁自審；未經 user 明示不 push；配套警告 無；hooksPath 保留。
 
 ### 2026-11-27 10:11 [maintain] Antigravity (Gemini 4 Neon)
 
@@ -77,78 +90,9 @@
 - 下一個 agent 該做什麼: 本次改動需要審閱：核對 `COMPONENT_MAP.md` 完整收錄 Polyglot 契約與兩項 `cmd.exe` 地雷。等待 `new session` 審閱。
 - 地雷警告: 接手自檢原 `core.hooksPath` 空，已設 `scripts/hooks` 並 `chmod +x`；僅本地提交未 `push`。
 
-### 2026-11-18 19:39 [maintain] 使用工具: Antigravity
-
-- 完成了什麼: 使用者於 2026-11-18 19:39 明示「我看過結案」，依 §2.1 正式簽結 v12／Online v13 憲法升級，自〈阻塞點〉移除並覆蓋交接基準為 `0890a67`。
-- 驗證方式: `git diff --name-only` 僅異動 `LLM_MEMORY.md`；純記憶更新免新審閱；C 區 `< 10 KB`。
-- 下一個 agent 該做什麼: 執行 Python 虛擬環境跨平台檢查（已覆蓋基準為 `0890a67`）。
-- 地雷警告: 無
-
-### 2026-11-18 16:01 [maintain] 使用工具: Antigravity
-
-- 完成了什麼: 依使用者指示將本目錄 `AGENTS.md` 自 Online v12 整份覆蓋升級至 v13（無模板外自訂規則；覆蓋前 hash `21fa02a`）。為何改：同步全 12 專案憲法至 v13。
-- 驗證方式: `head -n 2 AGENTS.md` 為 `Playbook-Version: 13` 與 `Playbook-Variant: online`，全文與 `Andy_AI_AGENT_WorkFlow/AGENTS.md` 一致。
-- 下一個 agent 該做什麼: 本次改動需要審閱：對照 Online v13 模板確認條文一致且 A 區進行中任務未遭改寫；並於〈阻塞點〉續列前次待審。等待 `new session` 審閱。
-- 地雷警告: 無
-
-### 2026-10-28 11:39 [maintain] 使用工具: Cursor Grok 4.7
-
-- 完成了什麼: 使用者指示把本目錄 AGENTS.md 從 online v11 整份覆蓋成 v12。與其他 v11 檔內容相同，沒有模板外自訂規則。覆蓋前 hash 22ec5bb。
-- 驗證方式: 讀檔首兩行是 Playbook-Version: 12 與 Playbook-Variant: online，且有「## 6. 對人訂正」。
-- 下一個 agent 該做什麼: 本次改動需要審閱：對照 v12 模板，確認條文一致且 A 區進行中任務沒被改寫。等待新 session／新工具審閱。
-- 地雷警告: 無
-
-
-### 2026-10-22 11:15 [maintain] 使用工具: Cursor Auto
-
-- 完成了什麼: 依 AI_AGENT_Playbook_Online.md 將本目錄 AGENTS.md 自 v10 整份覆蓋升級至 v11（online）。覆蓋前 AGENTS.md hash: 8155628（可用 `git show .md` 找回）。v11 重點：§0 接手環境自檢／驗證方式必填／待審下壓保護；§2.1 使用者簽結與批次審閱。
-- 驗證方式: 讀檔確認開頭 `<!-- Playbook-Version: 11 -->` 與 `<!-- Playbook-Variant: online -->`；內容含「接手環境自檢」「驗證方式」「待審下壓」「使用者簽結」。
-- 下一個 agent 該做什麼: 無（純憲法升級；若接手請依 §0 做 hooksPath 自檢）
-- 地雷警告: 無
-
-### 2026-09-14 10:20 [maintain] 使用工具: Antigravity
-
-- 完成了什麼: 依使用者指示，將 AGENTS.md 升級至 Playbook v10（三層架構規範、防膨脹門檻改為 10KB、單筆長度上限約 1200 bytes、Review Loop 排除 COMPONENT_MAP.md）。
-- 下一個 agent 該做什麼: 使用者明示推送到 GitHub（豁免本次審閱）。請後續接手的 agent 依各自專案階段推進任務。
-- 地雷警告: 無
-
-### 2026-08-25 17:14 [maintain] 使用工具: Claude Code
-
-- 完成了什麼: 依 Playbook Online v9 執行分支 C 升級（原版本 v2，無 `Playbook-Variant` 標記，§2 使用 commit 為交接機制，判定為 online 變體）：`AGENTS.md` 整份覆蓋至 v9 模板（新增交接基準 commit 機制、Review Loop 順序條款、巢狀範圍條款 §4、語言與編碼規範等；§5 早已指向 LLM_MEMORY，無需再搬遷）；A 區「最新 commit」欄改名為「交接基準 commit」；`scripts/hooks/pre-commit`、`commit-msg` 整份覆蓋為最新版，並執行 `git config core.hooksPath scripts/hooks`（先前檔案存在但從未啟用，等同 hook 從未真正生效過）；新增 `.gitattributes` 的 `scripts/hooks/* text eol=lf`；README.md 頂端補上語言與編碼規範引導行。覆蓋前 `AGENTS.md` 的舊版可用 `git show e9d936b:AGENTS.md` 找回。
-- 下一個 agent 該做什麼: 完成 Python 虛擬環境跨平台檢查（原進行中任務，見上方 B2/B3 目標清單）
-- 地雷警告: 無
-
-### 2026-07-06 19:35 [maintain] 使用工具: Claude Code (Playbook v2 升級導入)
-
-- 完成了什麼:
-  - 升級 AGENTS.md 至 Playbook v2：添加 Playbook-Version 標記、交接日誌書寫規範、§2.1 Review Loop、修改 §4 含 Git Hook 說明、移除依專案填寫的 §5 並改為指向 LLM_MEMORY.md
-  - 補充 LLM_MEMORY.md〈E. 專案技術脈絡〉區：搬遷舊 AGENTS.md §5 已填的建置指令、測試指令、程式碼慣例
-  - 安裝 Git Hook：建立 scripts/hooks/pre-commit 與 commit-msg，啟用 core.hooksPath
-
-- 下一個 agent 該做什麼:
-  - 完成 Python 虛擬環境跨平台檢查功能（原進行中任務）
-  - 驗證 polyglot run.cmd 在各平台的相容性
-  - 如有新發現的 bug，補充到 README 〈已知踩過的坑〉
-
-- 地雷警告: 無
-
-### 2026-07-05 14:XX [build] 使用工具: Claude Code (初始化導入)
-
-- 完成了什麼:
-  - 導入 AI agent 工作流系統（AGENTS.md / LLM_MEMORY.md / CLAUDE.md / GEMINI.md）
-  - 將 README.md 中的規劃內容（第一～三階段、架構改進、未來功能）搬遷至 LLM_MEMORY.md §B
-  - 在 README.md 頂端插入 AI 導引註解
-
-- 下一個 agent 該做什麼:
-  - 完成 Python 虛擬環境跨平台檢查功能
-  - 驗證 polyglot run.cmd 在各平台的相容性
-  - 如有新發現的 bug，補充到 README 〈已知踩過的坑〉
-
-- 地雷警告: 無
-
 ## D. 已封存結論(自〈交接日誌〉搬入,唯讀)
 
-（暫無封存內容）
+- 2026-07-05～11-18 19:39（均已簽結，契約與 `cmd.exe` 地雷已收錄 `COMPONENT_MAP.md`）：導入 Playbook v2（搬出 README 規劃、裝 Git Hook）→v9（`e9d936b`，補 `.gitattributes` LF、啟用 `core.hooksPath`、遷移交接基準）→v10→v11（`8155628`）→v12（`22ec5bb`）→v13（`21fa02a`，11-18 19:39 使用者簽結）。
 
 ## E. 專案技術脈絡
 
